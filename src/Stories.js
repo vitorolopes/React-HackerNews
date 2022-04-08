@@ -3,7 +3,7 @@ import {useGlobalContext} from './context'
 
 const Stories = () => {
 
-  const {isLoading, stories} = useGlobalContext();
+  const {isLoading, stories, removeStory} = useGlobalContext();
 
   if(isLoading){ 
    return <div className="loading"></div>
@@ -25,7 +25,9 @@ const Stories = () => {
                href={url}>
               read more
             </a>
-            <button className="remove-btn">
+            <button className="remove-btn"
+                    onClick={() => removeStory(objectID)}
+            >
               remove
             </button>
            </div>

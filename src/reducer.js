@@ -7,6 +7,11 @@ const reducer = (state, action) => {
         case "SET_LOADING":
             return {...state, isLoading: false}
 
+        case "REMOVE_STORY":
+            const newStories = state.stories.filter(story => story.objectID !== action.payload )
+            console.log(newStories);
+            return{...state, stories: newStories}
+
         default:
             throw new Error(`no matching ${action.type} action`)
     }
