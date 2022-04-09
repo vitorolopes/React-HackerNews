@@ -28,15 +28,20 @@ const AppProvider = ({children}) => {
         dispatch({type: "REMOVE_STORY", payload: id})
     }
 
+    const handleChange = (newQuery) => {
+        dispatch({type: "HANDLE_CHANGE", payload: newQuery} )
+    }
+
     useEffect(() => {
       fetchStories(`${API_ENDPOINT}${state.query}`)
-    }, [])
+    }, [state.query])
     
 
     return(
         <AppContext.Provider value={
             { ...state,
-              removeStory 
+              removeStory,
+              handleChange 
              } 
         }>
             {children}

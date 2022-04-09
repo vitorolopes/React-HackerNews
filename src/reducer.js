@@ -12,6 +12,9 @@ const reducer = (state, action) => {
             console.log(newStories);
             return{...state, stories: newStories}
 
+        case "HANDLE_CHANGE":
+            return{...state, query: action.payload}
+
         default:
             throw new Error(`no matching ${action.type} action`)
     }
