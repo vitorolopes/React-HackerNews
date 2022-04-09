@@ -38,11 +38,9 @@ const AppProvider = ({children}) => {
         dispatch({type: "HANDLE_CHANGE", payload: newQuery} )
     }
 
-    const handleClickIncrease = () => {
-        dispatch({type: "HANDLE_CLICK_INC"})
-    }
-    const handleClickDecrease = () => {
-        dispatch({type: "HANDLE_CLICK_DEC"})
+    const handleClick = (value) => {
+        console.log(value)
+        dispatch({type: "HANDLE_CLICK", payload: value})
     }
 
     useEffect(() => {
@@ -55,8 +53,7 @@ const AppProvider = ({children}) => {
             { ...state,
               removeStory,
               handleChange,
-              handleClickIncrease, 
-              handleClickDecrease 
+              handleClick
              } 
         }>
             {children}

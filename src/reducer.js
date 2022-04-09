@@ -20,20 +20,21 @@ const reducer = (state, action) => {
         case "HANDLE_CHANGE":
             return{...state, query: action.payload}
 
-        case "HANDLE_CLICK_INC":
-            if(state.page === state.nbPages - 1){
-                return{...state, page: 0}
+        case "HANDLE_CLICK":
+            if (action.payload === "dec"){
+                if(state.page === 0){
+                    return {...state, page: state.nbPages - 1}
+                }else{
+                    let newPage = state.page - 1
+                    return {...state, page: newPage}
+                }
             } else {
-                let newPage = state.page + 1
-                return{...state, page: newPage }
-            }
-        
-        case "HANDLE_CLICK_DEC":
-            if(state.page === 0){
-                return {...state, page: state.nbPages - 1}
-            } else {
-                let newPage = state.page - 1
-                return{...state, page: newPage}
+                if(state.page === state.nbPages - 1){
+                    return {...state, page: 0}
+                } else {
+                    let newPage = state.page + 1
+                    return {...state, page: newPage}
+                }
             }
             
         default:
