@@ -3,13 +3,24 @@ import { useGlobalContext } from './context'
 
 const Buttons = () => {
 
-  // const {page, handleClickIncrease} = useGlobalContext();
+  const {page, 
+         handleClickIncrease,
+         nbPages,
+         handleClickDecrease} = useGlobalContext();
  
   return (
     <div className='btn-container'>
-      <button>prev</button>
-      {/* <p>{page + 1} of 50</p>
-      <button onClick={handleClickIncrease}>next</button> */}
+      <button
+        onClick={handleClickDecrease}
+      >
+        prev
+      </button>
+      <p>{page + 1} of {nbPages}</p>
+      <button 
+         onClick={handleClickIncrease}
+      >
+        next
+      </button>
     </div>
   )
 }

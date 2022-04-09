@@ -8,6 +8,7 @@ const initialState ={
     query: "react",  // SearchForm
     stories: [], // Stories
     page: 0, // Buttons
+    nbPages: 0
 }
 
 const API_ENDPOINT =   `http://hn.algolia.com/api/v1/search?query=` 
@@ -17,19 +18,16 @@ const AppProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     const fetchStories = async (url) => {
-        dispatch({type: "SET_LOADING"})//Whenever we type something
-        // in the input we want a new fetch request, so we want to set
-        // isLoading to true
+        dispatch({type: "SET_LOADING"})
         try {
             const response = await fetch(url);
             const data = await response.json();
             console.log(data);
-            dispatch({type: "SET_STORIES", payload: data.hits})
+            dispatch({type: "SET_STORIES", 
+                payload: {stories: data.hits, nbPages: data.nbPages}})
         } catch (error) {
             console.log(error);
         }
-
-      
     }
 
     const removeStory = (id) => {
@@ -40,9 +38,12 @@ const AppProvider = ({children}) => {
         dispatch({type: "HANDLE_CHANGE", payload: newQuery} )
     }
 
-    // const handleClickIncrease = () => {
-    //     dispatch({type: "HANDLE_CLICK_INC"})
-    // }
+    const handleClickIncrease = () => {
+        dispatch({type: "HANDLE_CLICK_INC"})
+    }
+    const handleClickDecrease = () => {
+        dispatch({type: "HANDLE_CLICK_DEC"})
+    }
 
     useEffect(() => {
       fetchStories(`${API_ENDPOINT}${state.query}&page=${state.page}`)
@@ -54,7 +55,8 @@ const AppProvider = ({children}) => {
             { ...state,
               removeStory,
               handleChange,
-            //   handleClickIncrease 
+              handleClickIncrease, 
+              handleClickDecrease 
              } 
         }>
             {children}
